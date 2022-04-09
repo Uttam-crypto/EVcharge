@@ -1,6 +1,6 @@
-## funCharge
+## EVcharge
 
-<p align="center"><img src="https://github.com/Uttam-crypto/EVcharge/blob/main/public/assets/funCharge_nobg.png" width = "25%" height = "25%"></p>
+<p align="center">
 
 [![License](https://img.shields.io/badge/license-BSD-green.svg)](https://github.com/Uttam-crypto/EVcharge/blob/main/LICENSE) [![Website](https://img.shields.io/badge/View-Website-blue)](https://funcharge.herokuapp.com/)
 
