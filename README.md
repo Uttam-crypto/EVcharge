@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/license-BSD-green.svg)](https://github.com/Uttam-crypto/EVcharge/blob/main/LICENSE) [![Website](https://img.shields.io/badge/View-Website-blue)](https://funcharge.herokuapp.com/)
 
-<b>funCharge</b> is an interactive and responsive web application which makes it fun for EV owners to charge their vehicles. The application uses various APIs to provide most efficient route, while listing and ranking options of charging stations and recreational activities that commuters can meanwhile engage in, emergency contacts to keep them safe, etc.
+<b>EVCharge</b> is an interactive and responsive web application which makes it fun for EV owners to charge their vehicles. The application uses various APIs to provide most efficient route, while listing and ranking options of charging stations and recreational activities that commuters can meanwhile engage in, emergency contacts to keep them safe, etc.
 
 ## Contents
 
