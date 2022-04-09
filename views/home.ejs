@@ -1,0 +1,205 @@
+<html>
+
+<head>
+    <title>
+        funCharge
+    </title>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <meta name="viewport" content="initial-scale=1.0,
+            width=device-width" />
+    <!-- <script src="design.js" type="text/javascript"></script> -->
+    <!-- HERE API SCRIPTS -->
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- HERE CSS STYLESHEETS -->
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <!-- semantic ui cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+        integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <!-- header -->
+    <%- include("./partials/header.ejs") %>
+        <!-- body -->
+        <div class="ui stackable internally celled grid">
+            <div class="three wide column">
+                <div class="ui raised segments">
+                    <div class="ui segment">
+                        <p>Find recreational centers/charging stations near you</p>
+                        <button class="large ui button" onClick="getBrowserPosition()">
+                            Find near me
+                        </button>
+                    </div>
+                    <div class="ui segment">
+                        <p>Get route along with recreational centers/charging stations en route</p>
+                        <div class="ui vertical buttons">
+                            <button id="markBtn" class="large ui button" onClick="setUpClickListener(map)">
+                                Mark Positions
+                            </button>
+                            <button id="routeBtn" class="large ui disabled button">
+                                Route
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <table id="routeStats" class="ui table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Route Stats</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Duration</td>
+                            <td id="totalDuration"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Length</td>
+                            <td id="totalLength"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Consumption</td>
+                            <td id="totalConsumption"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="ten wide column">
+                <div id="mapContainer"></div>
+            </div>
+            <div class="three wide column">
+                <div class="ui raised segment">
+                    <h2 class="ui dividing header">Location :</h2>
+                    <div id="status">
+                        <p>Click on map to get location info!!</p>
+                    </div>
+                    <h2 class="ui dividing header">Contacts :</h2>
+                    <div id="contacts">
+                        <p>Click on map to get emergency contacts!!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer segment -->
+        <%- include("./partials/footer.ejs") %>
+            <!-- Modal to get car info -->
+            <div id="routeInfoModal" class="ui modal">
+                <h1 class="ui header">Car info</h1>
+                <br>
+                <br>
+                <div class="ui centered container">
+                    <!-- Car types -->
+                    <div class="ui five column stackable relaxed grid">
+                        <div class="column"></div>
+                        <div id="hatchback" class="column" onClick="carSelect('hatchback')">
+                            <img class="ui centered image" src="./assets/hatchback.webp">
+                            <h3 class="ui center aligned header">
+                                Hatchback
+                            </h3>
+                        </div>
+                        <div id="sedan" class="column" onClick="carSelect('sedan')">
+                            <img class="ui centered image" src="./assets/sedan.webp">
+                            <h3 class="ui center aligned header">
+                                Sedan
+                            </h3>
+                        </div>
+                        <div id="SUV" class="column" onClick="carSelect('SUV')">
+                            <img class="ui centered image" src="./assets/SUV.webp">
+                            <h3 class="ui center aligned header">
+                                SUV
+                            </h3>
+                        </div>
+
+                        <div class="column"></div>
+                    </div>
+                    <!-- Slider -->
+                    <div class="ui relaxed grid">
+                        <div class="row">
+                            <div class="two wide column"></div>
+                            <div class="twelve wide column">
+                                <input id="batteryValInp" type="range" value="50" min="0" max="100">
+                            </div>
+                            <div class="two wide column"></div>
+                        </div>
+                        <div class="row">
+                            <div class="two wide column"></div>
+                            <div class="twelve wide center aligned column">
+                                <div class="ui huge statistic">
+                                    <div id="batteryVal" class="value">
+                                    </div>
+                                    <div class="label">
+                                        Battery
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="two wide column"></div>
+                        </div>
+                        <div class="row">
+                            <div class="two wide column"></div>
+                            <div class="twelve wide right aligned column">
+                                <div id="submitBtn" class="ui secondary animated button" onClick="route()">
+                                    <div class="visible content">
+                                        Submit
+                                    </div>
+                                    <div class="hidden content"><i class="paper plane icon"></i></div>
+                                </div>
+                            </div>
+                            <div class="two wide column"></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+</body>
+
+<script>
+    $('#routeBtn').click(() => {
+        $('#routeInfoModal')
+            // .modal('setting', 'closable', false)
+            .modal('setting', 'transition', 'drop')
+            .modal('show');
+        $('#routeBtn').addClass("disabled");
+    })
+</script>
+
+<!-- CUSTOM STYLESHEETS && SCRIPTS -->
+<link href="styles.css" rel="stylesheet" type="text/css">
+<script src="script.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "85792898-fd67-4037-892d-c1be7c52b92c", // The ID of this integration.
+      region: "kr-seo", // The region your integration is hosted in.
+      serviceInstanceID: "b6ad0838-30f3-41b1-902a-c54536306cf5", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  </script>
+
+</html>
