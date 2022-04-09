@@ -64,6 +64,10 @@ You can find a running system to test at [electric-vehicle.herokuapp.com](https:
 ## Authors
 
 * **Uttam** - [Uttam-crypto](https://github.com/Uttam-crypto)
+* **Aamartya Kumar Yadav** 
+* **Amartya Sen Yadav** 
+* **Shreyash Kumar** 
+  
 
 ## License
 
