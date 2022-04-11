@@ -46,18 +46,16 @@ funCharge directly traces trajectory and possible charging station you can reach
 
 ## Live Demo
 
-You can find a running system to test at [electric-vehicle.herokuapp.com](https://electric-vehicle.herokuapp.com/)
+You can find a running system to test at [evuttam.herokuapp.com](https://evuttam.herokuapp.com/)
 
 ## Built With
 
 * [Postman](https://www.postman.com/) - API Testing
-* [IBM Watson](https://www.ibm.com/in-en/watson) - Chat Assistant : funCharge Bot
 * [HERE Maps API](https://developer.here.com/) - HERE Map API for Tracking Routes
 * [nodeJS](https://nodejs.org/en/) - Server Runtime Environment
 * [Github](https://github.com/) - Version control
 * [Heroku](https://www.heroku.com/) - Cloud Hosting Service
 * [jQuery](https://jquery.com/) - JavaScript Library for handling AJAX
-* [PushBot](https://pushbots.com/) - Notifications
 * [Semantic UI](https://semantic-ui.com/) - Frontend Components and UI/UX Design
 * [sqlite3](https://www.sqlite.org/) - Helpline API design
 
