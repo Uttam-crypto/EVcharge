@@ -33,7 +33,7 @@ funCharge directly traces trajectory and possible charging station you can reach
 
 ## Demo Video
 
-[Video]([https://drive.google.com/file/d/1eTUBwHLjFoGqOOOu2gHEe0ny66oVf_f7/view?usp=sharing](https://drive.google.com/file/d/1uKD5RfzcqYPyga26KW_yOkIZkd6Um-Fq/view?usp=sharing))
+[Video](https://drive.google.com/file/d/1uKD5RfzcqYPyga26KW_yOkIZkd6Um-Fq/view?usp=sharing)
 
 
 ## Architecture
